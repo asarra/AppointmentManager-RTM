@@ -130,7 +130,7 @@ paths:
       responses:
         '200':
           description: Success
-          content: 
+          content:
             application/json:
               schema:
                 type: array
@@ -370,15 +370,15 @@ components:
 
   requestBodies:
     ContactBody:
-      content: 
-        application/json: 
-          schema: 
+      content:
+        application/json:
+          schema:
             $ref: '#/components/schemas/KONTAKT'
       required: true
     AppointmentBody:
-        content: 
-          application/json: 
-            schema: 
+        content:
+          application/json:
+            schema:
               $ref: '#/components/schemas/TERMIN'
         required: true
 
@@ -390,7 +390,7 @@ components:
           authorizationUrl: http://localhost:3001/oauth/authorize
           scopes:
             write:contacts: modify contacts
-            read:contacts: read contacts          
+            read:contacts: read contacts
             write:appointments: modify appointments
             read:appointments: read appointments
     #api_key:
