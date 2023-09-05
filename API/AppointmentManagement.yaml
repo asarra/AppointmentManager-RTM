@@ -1,0 +1,402 @@
+openapi: 3.1.0
+
+info:
+  title: Swagger Appointment managment - RTM - OpenAPI 3.1
+  description: |-
+    This is the OpenAPI 3.0 specification of Appointment managment - RTM.
+  contact:
+    email: mehmet-ali.asar@protonmail.com
+  version: "0.1"
+
+externalDocs:
+  description: Find out more about the project
+  url: https://github.com/asarra/AppointmentManager-RTM
+
+servers:
+  - url: http://localhost:3001/api/v3
+
+tags:
+  - name: CONTACT
+    description: Manage your contacts
+  - name: APPOINTMENT
+    description: Manage your appointments
+
+
+
+paths:
+  /contacts:
+    get:  # get and delete do not get a requestBody
+      tags:
+        - CONTACT
+      operationId: getContacts
+      summary: Get all contacts
+      description: Get all contacts as JSON
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CONTACT'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        #- api_key: []
+        - appointmentmanagement_auth:
+            - write:contacts
+            - read:contacts
+
+    post:
+      tags:
+        - CONTACT
+      operationId: createContact
+      summary: Create a new contact
+      description: Create a new contact by Id
+      requestBody:
+        $ref: '#/components/requestBodies/ContactBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/ContactResponse'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        - appointmentmanagement_auth:
+            - write:contacts
+            - read:contacts
+
+  /contacts/{ContactID}:
+    parameters:
+      - $ref: '#/components/parameters/ContactID'
+    get:
+      tags:
+        - CONTACT
+      operationId: getContact
+      summary: Get a single contact
+      description: Get a single contact by Id
+      responses:
+        '200':
+          $ref: '#/components/responses/ContactResponse'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        #- api_key: []
+        - appointmentmanagement_auth:
+            - write:contacts
+            - read:contacts
+
+    put:
+      tags:
+        - CONTACT
+      operationId: replaceContact
+      summary: Replace a single contact
+      description: Replace a single contact by Id
+      requestBody:
+        $ref: '#/components/requestBodies/ContactBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/ContactResponse'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        - appointmentmanagement_auth:
+            - write:contacts
+            - read:contacts
+
+    delete:
+      tags:
+        - CONTACT
+      operationId: deleteContact
+      summary: Delete a single contact
+      description: Delete a single contact by Id
+      responses:
+        '204':
+          description: Deleted the contact
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        - appointmentmanagement_auth:
+            - write:contacts
+            - read:contacts
+
+  /appointments:
+    get:
+      tags:
+        - APPOINTMENT
+      operationId: getAppointments
+      summary: Get all appointments
+      description: Get all appointments as JSON
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/APPOINTMENT'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/APPOINTMENT'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        #- api_key: []
+        - appointmentmanagement_auth:
+            - write:appointments
+            - read:appointments
+
+    post:
+      tags:
+        - APPOINTMENT
+      operationId: createAppointment
+      summary: Create a new appointment
+      description: Create a new appointment by Id
+      requestBody:
+        $ref: '#/components/requestBodies/AppointmentBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/AppointmentResponse'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        - appointmentmanagement_auth:
+            - write:appointments
+            - read:appointments
+
+  /appointments/{AppointmentID}:
+    parameters:
+      - $ref: '#/components/parameters/AppointmentID'
+    get:
+      tags:
+        - APPOINTMENT
+      operationId: getAppointment
+      summary: Get a single appointment
+      description: Get a single appointment by Id
+      responses:
+        '200':
+          $ref: '#/components/responses/AppointmentResponse'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        #- api_key: []
+        - appointmentmanagement_auth:
+            - write:appointments
+            - read:appointments
+
+    put:
+      tags:
+        - APPOINTMENT
+      operationId: replaceAppointment
+      summary: Replace a single appointment
+      description: Replace a single appointment by Id
+      requestBody:
+        $ref: '#/components/requestBodies/AppointmentBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/AppointmentResponse'
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        - appointmentmanagement_auth:
+            - write:appointments
+            - read:appointments
+
+    delete:
+      tags:
+        - APPOINTMENT
+      operationId: deleteAppointment
+      summary: Delete a single appointment
+      description: Delete a single appointment by Id
+      responses:
+        '204':
+          description: Deleted the appointment
+        default:
+          $ref: '#/components/responses/CollectAllErrorsResponse'
+      security:
+        - appointmentmanagement_auth:
+            - write:appointments
+            - read:appointments
+
+
+
+components:
+  parameters:
+    ContactID:
+      in: path
+      name: ContactID
+      required: true
+      schema:
+        type: integer
+        minimum: 0
+    AppointmentID:
+      in: path
+      name: AppointmentID
+      required: true
+      schema:
+        type: integer
+        minimum: 0
+
+  responses:
+    CollectAllErrorsResponse: # catches everything that is not '200' and in delete cases '204'
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ContactResponse:
+      description: Success
+      content: 
+        application/json:
+          schema:
+              $ref: '#/components/schemas/CONTACT'
+    AppointmentResponse:
+      description: Success
+      content: 
+        application/json:
+          schema:
+              $ref: '#/components/schemas/APPOINTMENT'
+
+  schemas:
+    CONTACT:
+      type: object
+      required:
+        - ContactID
+        - Name
+        - PostalCode
+        - Street
+        - City
+        - Email
+        - ContactType
+        - Telephone
+        - Company
+      properties:
+        ContactID:
+          type: integer
+          format: int64
+        Name:
+          type: string
+        PostalCode:
+          type: integer
+          format: int32
+        Street:
+          type: string
+          maxLength: 50
+        City:
+          type: string
+          maxLength: 50
+        Note:
+          type: string
+        Email:
+          type: string
+        ContactType:
+          type: integer
+          format: int32
+        Telephone:
+          type: integer
+          format: int64
+        Company:
+          type: string
+          maxLength: 50
+      xml:
+        name: CONTACT
+    APPOINTMENT:
+      type: object
+      required:
+        - AppointmentID
+        - ContactID
+        - Repetition
+        - Topic
+        - StartTime
+        - City
+      properties:
+        AppointmentID:
+          type: integer
+          format: int64
+        ContactID:
+          type: integer
+          format: int64
+        Repetition:
+          type: integer
+          format: int32
+        Topic:
+          type: string
+        Note:
+          type: string
+        StartTime:
+          type: string
+          format: date-time
+        EndTime:
+          type: string
+          format: date-time
+        City:
+          type: string
+          maxLength: 50
+      xml:
+        name: APPOINTMENT
+    REMINDER:
+      type: object
+      required:
+        - ReminderID
+        - AppointmentID
+        - Time
+      properties:
+        ReminderID:
+          type: integer
+          format: int64
+        AppointmentID:
+          type: integer
+          format: int64
+        Time:
+          type: string
+          format: date-time
+      xml:
+        name: REMINDER
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+  requestBodies:
+    ContactBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CONTACT'
+      required: true
+    AppointmentBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APPOINTMENT'
+        required: true
+
+  securitySchemes:
+    appointmentmanagement_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://localhost:3001/oauth/authorize
+          scopes:
+            write:contacts: modify contacts
+            read:contacts: read contacts
+            write:appointments: modify appointments
+            read:appointments: read appointments
+    #api_key:
+    #  type: apiKey
+    #  name: api_key
+    #  in: header
+
+# Appointment needs to create a Reminder?
+#
+# https://apidog.com/articles/postman-vs-swagger/
