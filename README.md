@@ -1,3 +1,3 @@
-# Terminverwaltung-RTM
+# Appointment managment - RTM
 
-Das ist ein Gruppenprojekt von Rico G., Tobias K. und Mehmet-Ali A..
+This is a group project done by Rico G., Tobias K. and Mehmet-Ali A..
