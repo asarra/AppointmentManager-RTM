@@ -1,0 +1,7 @@
+0) Using openapitools because swagger codegen is bad
+1) Download JDK
+2) Download NPM
+3) Run in Powershell (creates API):
+openapi-generator-cli generate -i AppointmentManagement.yaml -g aspnetcore -o AppointmentManagement.API --package-name AppointmentManagement.API
+4) Run in PS (creates client):
+openapi-generator-cli generate -i AppointmentManagement.yaml -g csharp -o AppointmentManagement.Client --package-name AppointmentManagement.Client

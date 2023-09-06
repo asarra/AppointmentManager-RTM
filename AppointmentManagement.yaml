@@ -399,4 +399,5 @@ components:
 
 # Appointment needs to create a Reminder?
 #
-# https://apidog.com/articles/postman-vs-swagger/
+# https://dotnetcoretutorials.com/using-openapi-generator-to-scaffold-apis-and-api-clients/?expand_article=1
+# Google: api key vs oauth2 for android app
