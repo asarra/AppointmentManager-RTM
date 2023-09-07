@@ -1,0 +1,2 @@
+- Adding an online source for Nuget
+- Making the project target .Net 7 instead of .Net Core 3 in properties
