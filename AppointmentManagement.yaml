@@ -3,7 +3,7 @@ openapi: 3.1.0
 info:
   title: Swagger Appointment managment - RTM - OpenAPI 3.1
   description: |-
-    This is the OpenAPI 3.0 specification of Appointment managment - RTM.
+    This is the OpenAPI 3.1 specification of Appointment managment - RTM.
   contact:
     email: mehmet-ali.asar@protonmail.com
   version: "0.1"
@@ -21,6 +21,8 @@ tags:
   - name: APPOINTMENT
     description: Manage your appointments
 
+security:
+  - api_key: []
 
 
 paths:
@@ -42,11 +44,11 @@ paths:
                   $ref: '#/components/schemas/CONTACT'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
+      #security:
         #- api_key: []
-        - appointmentmanagement_auth:
-            - write:contacts
-            - read:contacts
+        #- appointmentmanagement_auth:
+        #    - write:contacts
+        #    - read:contacts
 
     post:
       tags:
@@ -61,10 +63,10 @@ paths:
           $ref: '#/components/responses/ContactResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
-        - appointmentmanagement_auth:
-            - write:contacts
-            - read:contacts
+      #security:
+        #- appointmentmanagement_auth:
+            #- write:contacts
+            #- read:contacts
 
   /contacts/{ContactID}:
     parameters:
@@ -80,11 +82,11 @@ paths:
           $ref: '#/components/responses/ContactResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
+      #security:
         #- api_key: []
-        - appointmentmanagement_auth:
-            - write:contacts
-            - read:contacts
+        #- appointmentmanagement_auth:
+        #    - write:contacts
+        #    - read:contacts
 
     put:
       tags:
@@ -99,10 +101,10 @@ paths:
           $ref: '#/components/responses/ContactResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
-        - appointmentmanagement_auth:
-            - write:contacts
-            - read:contacts
+      #security:
+        #- appointmentmanagement_auth:
+            #- write:contacts
+            #- read:contacts
 
     delete:
       tags:
@@ -115,10 +117,10 @@ paths:
           description: Deleted the contact
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
-        - appointmentmanagement_auth:
-            - write:contacts
-            - read:contacts
+      #security:
+        #- appointmentmanagement_auth:
+            #- write:contacts
+            #- read:contacts
 
   /appointments:
     get:
@@ -143,11 +145,11 @@ paths:
                   $ref: '#/components/schemas/APPOINTMENT'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
+      #security:
         #- api_key: []
-        - appointmentmanagement_auth:
-            - write:appointments
-            - read:appointments
+        #- appointmentmanagement_auth:
+        #    - write:appointments
+        #    - read:appointments
 
     post:
       tags:
@@ -162,10 +164,10 @@ paths:
           $ref: '#/components/responses/AppointmentResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
-        - appointmentmanagement_auth:
-            - write:appointments
-            - read:appointments
+      #security:
+        #- appointmentmanagement_auth:
+            #- write:appointments
+            #- read:appointments
 
   /appointments/{AppointmentID}:
     parameters:
@@ -181,11 +183,11 @@ paths:
           $ref: '#/components/responses/AppointmentResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
+      #security:
         #- api_key: []
-        - appointmentmanagement_auth:
-            - write:appointments
-            - read:appointments
+        #- appointmentmanagement_auth:
+        #    - write:appointments
+        #    - read:appointments
 
     put:
       tags:
@@ -200,10 +202,10 @@ paths:
           $ref: '#/components/responses/AppointmentResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
-        - appointmentmanagement_auth:
-            - write:appointments
-            - read:appointments
+      #security:
+        #- appointmentmanagement_auth:
+            #- write:appointments
+            #- read:appointments
 
     delete:
       tags:
@@ -216,10 +218,10 @@ paths:
           description: Deleted the appointment
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      security:
-        - appointmentmanagement_auth:
-            - write:appointments
-            - read:appointments
+      #security:
+        #- appointmentmanagement_auth:
+            #- write:appointments
+            #- read:appointments
 
 
 
@@ -382,20 +384,20 @@ components:
         required: true
 
   securitySchemes:
-    appointmentmanagement_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: http://localhost:3001/oauth/authorize
-          scopes:
-            write:contacts: modify contacts
-            read:contacts: read contacts
-            write:appointments: modify appointments
-            read:appointments: read appointments
-    #api_key:
-    #  type: apiKey
-    #  name: api_key
-    #  in: header
+    #appointmentmanagement_auth:
+    #  type: oauth2
+    #  flows:
+    #    implicit:
+    #      authorizationUrl: http://localhost:3001/oauth/authorize
+    #      scopes:
+    #        write:contacts: modify contacts
+    #        read:contacts: read contacts
+    #        write:appointments: modify appointments
+    #        read:appointments: read appointments
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
 
 # Appointment needs to create a Reminder?
 #

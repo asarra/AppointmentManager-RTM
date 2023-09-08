@@ -1,7 +1,7 @@
 /*
  * Swagger Appointment managment - RTM - OpenAPI 3.1
  *
- * This is the OpenAPI 3.0 specification of Appointment managment - RTM.
+ * This is the OpenAPI 3.1 specification of Appointment managment - RTM.
  *
  * The version of the OpenAPI document: 0.1
  * Contact: mehmet-ali.asar@protonmail.com
@@ -37,6 +37,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpPost]
         [Route("/api/v3/appointments")]
+        [Authorize(Policy = "api_key")]
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateAppointment")]
@@ -60,6 +61,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpDelete]
         [Route("/api/v3/appointments/{AppointmentID}")]
+        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("DeleteAppointment")]
         public virtual IActionResult DeleteAppointment([FromRoute (Name = "AppointmentID")][Required]Object appointmentID)
@@ -82,6 +84,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpGet]
         [Route("/api/v3/appointments/{AppointmentID}")]
+        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("GetAppointment")]
         public virtual IActionResult GetAppointment([FromRoute (Name = "AppointmentID")][Required]Object appointmentID)
@@ -103,6 +106,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpGet]
         [Route("/api/v3/appointments")]
+        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("GetAppointments")]
         [SwaggerResponse(statusCode: 200, type: typeof(Object), description: "Success")]
@@ -132,6 +136,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpPut]
         [Route("/api/v3/appointments/{AppointmentID}")]
+        [Authorize(Policy = "api_key")]
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("ReplaceAppointment")]

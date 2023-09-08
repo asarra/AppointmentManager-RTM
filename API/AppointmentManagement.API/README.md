@@ -1,6 +1,6 @@
-# AppointmentManagement.API - ASP.NET Core 3.1 Server
+# AppointmentManagement.API - ASP.NET Core 6.0 Server
 
-This is the OpenAPI 3.0 specification of Appointment managment - RTM.
+This is the OpenAPI 3.1 specification of Appointment managment - RTM.
 
 ## Upgrade NuGet Packages
 

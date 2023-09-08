@@ -1,7 +1,7 @@
 /*
  * Swagger Appointment managment - RTM - OpenAPI 3.1
  *
- * This is the OpenAPI 3.0 specification of Appointment managment - RTM.
+ * This is the OpenAPI 3.1 specification of Appointment managment - RTM.
  *
  * The version of the OpenAPI document: 0.1
  * Contact: mehmet-ali.asar@protonmail.com
@@ -37,6 +37,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpPost]
         [Route("/api/v3/contacts")]
+        [Authorize(Policy = "api_key")]
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateContact")]
@@ -60,6 +61,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpDelete]
         [Route("/api/v3/contacts/{ContactID}")]
+        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("DeleteContact")]
         public virtual IActionResult DeleteContact([FromRoute (Name = "ContactID")][Required]Object contactID)
@@ -82,6 +84,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpGet]
         [Route("/api/v3/contacts/{ContactID}")]
+        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("GetContact")]
         public virtual IActionResult GetContact([FromRoute (Name = "ContactID")][Required]Object contactID)
@@ -103,6 +106,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpGet]
         [Route("/api/v3/contacts")]
+        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("GetContacts")]
         [SwaggerResponse(statusCode: 200, type: typeof(Object), description: "Success")]
@@ -132,6 +136,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpPut]
         [Route("/api/v3/contacts/{ContactID}")]
+        [Authorize(Policy = "api_key")]
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("ReplaceContact")]

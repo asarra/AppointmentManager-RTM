@@ -4,7 +4,7 @@
     "contact" : {
       "email" : "mehmet-ali.asar@protonmail.com"
     },
-    "description" : "This is the OpenAPI 3.0 specification of Appointment managment - RTM.",
+    "description" : "This is the OpenAPI 3.1 specification of Appointment managment - RTM.",
     "title" : "Swagger Appointment managment - RTM - OpenAPI 3.1",
     "version" : "0.1"
   },
@@ -14,6 +14,9 @@
   },
   "servers" : [ {
     "url" : "http://localhost:3001/api/v3"
+  } ],
+  "security" : [ {
+    "api_key" : [ ]
   } ],
   "tags" : [ {
     "description" : "Manage your contacts",
@@ -44,9 +47,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:contacts", "read:contacts" ]
-        } ],
         "summary" : "Get all contacts",
         "tags" : [ "CONTACT" ]
       },
@@ -64,9 +64,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:contacts", "read:contacts" ]
-        } ],
         "summary" : "Create a new contact",
         "tags" : [ "CONTACT" ]
       }
@@ -86,9 +83,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:contacts", "read:contacts" ]
-        } ],
         "summary" : "Delete a single contact",
         "tags" : [ "CONTACT" ]
       },
@@ -106,9 +100,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:contacts", "read:contacts" ]
-        } ],
         "summary" : "Get a single contact",
         "tags" : [ "CONTACT" ]
       },
@@ -132,9 +123,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:contacts", "read:contacts" ]
-        } ],
         "summary" : "Replace a single contact",
         "tags" : [ "CONTACT" ]
       }
@@ -167,9 +155,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:appointments", "read:appointments" ]
-        } ],
         "summary" : "Get all appointments",
         "tags" : [ "APPOINTMENT" ]
       },
@@ -187,9 +172,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:appointments", "read:appointments" ]
-        } ],
         "summary" : "Create a new appointment",
         "tags" : [ "APPOINTMENT" ]
       }
@@ -209,9 +191,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:appointments", "read:appointments" ]
-        } ],
         "summary" : "Delete a single appointment",
         "tags" : [ "APPOINTMENT" ]
       },
@@ -229,9 +208,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:appointments", "read:appointments" ]
-        } ],
         "summary" : "Get a single appointment",
         "tags" : [ "APPOINTMENT" ]
       },
@@ -255,9 +231,6 @@
             "$ref" : "#/components/responses/CollectAllErrorsResponse"
           }
         },
-        "security" : [ {
-          "appointmentmanagement_auth" : [ "write:appointments", "read:appointments" ]
-        } ],
         "summary" : "Replace a single appointment",
         "tags" : [ "APPOINTMENT" ]
       }
@@ -451,19 +424,10 @@
       }
     },
     "securitySchemes" : {
-      "appointmentmanagement_auth" : {
-        "flows" : {
-          "implicit" : {
-            "authorizationUrl" : "http://localhost:3001/oauth/authorize",
-            "scopes" : {
-              "write:contacts" : "modify contacts",
-              "read:contacts" : "read contacts",
-              "write:appointments" : "modify appointments",
-              "read:appointments" : "read appointments"
-            }
-          }
-        },
-        "type" : "oauth2"
+      "api_key" : {
+        "in" : "header",
+        "name" : "api_key",
+        "type" : "apiKey"
       }
     }
   }

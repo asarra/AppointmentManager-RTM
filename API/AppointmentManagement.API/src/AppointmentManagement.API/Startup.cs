@@ -1,7 +1,7 @@
 /*
  * Swagger Appointment managment - RTM - OpenAPI 3.1
  *
- * This is the OpenAPI 3.0 specification of Appointment managment - RTM.
+ * This is the OpenAPI 3.1 specification of Appointment managment - RTM.
  *
  * The version of the OpenAPI document: 0.1
  * Contact: mehmet-ali.asar@protonmail.com
@@ -52,6 +52,15 @@ namespace AppointmentManagement.API
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IAuthorizationHandler, ApiKeyRequirementHandler>();
+            services.AddAuthorization(authConfig =>
+            {
+                authConfig.AddPolicy("api_key", policyBuilder =>
+                {
+                    policyBuilder
+                        .AddRequirements(new ApiKeyRequirement(new[] { "my-secret-key" },"api_key"));
+                });
+            });
 
             // Add framework services.
             services
@@ -75,7 +84,7 @@ namespace AppointmentManagement.API
                     c.SwaggerDoc("0.1", new OpenApiInfo
                     {
                         Title = "Swagger Appointment managment - RTM - OpenAPI 3.1",
-                        Description = "Swagger Appointment managment - RTM - OpenAPI 3.1 (ASP.NET Core 3.1)",
+                        Description = "Swagger Appointment managment - RTM - OpenAPI 3.1 (ASP.NET Core 6.0)",
                         TermsOfService = new Uri("https://github.com/openapitools/openapi-generator"),
                         Contact = new OpenApiContact
                         {
