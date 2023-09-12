@@ -1,1 +1,0 @@
-- Making the project target .Net Core 7 instead of .Net Core 3 in properties

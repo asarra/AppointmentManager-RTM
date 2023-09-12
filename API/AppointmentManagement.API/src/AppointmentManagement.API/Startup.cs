@@ -24,6 +24,9 @@ using AppointmentManagement.API.Authentication;
 using AppointmentManagement.API.Filters;
 using AppointmentManagement.API.OpenApi;
 using AppointmentManagement.API.Formatters;
+using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace AppointmentManagement.API
 {
@@ -61,6 +64,12 @@ namespace AppointmentManagement.API
                         .AddRequirements(new ApiKeyRequirement(new[] { "my-secret-key" },"api_key"));
                 });
             });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+                    options => Configuration.Bind("JwtSettings", options))
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                    options => Configuration.Bind("CookieSettings", options));
 
             // Add framework services.
             services
@@ -146,6 +155,8 @@ namespace AppointmentManagement.API
                     // c.SwaggerEndpoint("/openapi-original.json", "Swagger Appointment managment - RTM - OpenAPI 3.1 Original");
                 });
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();

@@ -426,7 +426,7 @@
     "securitySchemes" : {
       "api_key" : {
         "in" : "header",
-        "name" : "api_key",
+        "name" : "X-API-key",
         "type" : "apiKey"
       }
     }

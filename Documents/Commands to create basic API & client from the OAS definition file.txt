@@ -6,11 +6,15 @@
 
 2.2) npm install @openapitools/openapi-generator-cli -g
 
-2.3) Invoke-WebRequest -OutFile openapi-generator-cli.jar https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.6.0/openapi-generator-cli-6.6.0.jar
+2.3) Run in Powershell:
+Invoke-WebRequest -OutFile openapi-generator-cli.jar https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.6.0/openapi-generator-cli-6.6.0.jar
 
-3) Run in Powershell (creates API):
+3.1) Run in Powershell (creates API):
 openapi-generator-cli generate -i AppointmentManagement.yaml -g aspnetcore --additional-properties=aspnetCoreVersion=6.0 -o AppointmentManagement.API --package-name AppointmentManagement.API
 
+3.2) Fix the generated API:
+- Making the project target .Net 7 instead of .Net Core 3 in properties
+- Implementing my own security methods since the generated one is not working with this tutorial: https://www.infoworld.com/article/3650668/implement-authorization-for-swagger-in-aspnet-core-6.html
 
 4) Run in PS (creates client):
 openapi-generator-cli generate -i AppointmentManagement.yaml -g csharp -o AppointmentManagement.Client --package-name AppointmentManagement.Client

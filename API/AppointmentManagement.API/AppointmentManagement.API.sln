@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.7.34018.315
+VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentManagement.API", "src\AppointmentManagement.API\AppointmentManagement.API.csproj", "{FE1CA4E9-0E83-45F0-AC4E-ED5F64F5F63D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentManagement.API", "src\AppointmentManagement.API\AppointmentManagement.API.csproj", "{0D3FF656-E265-4F5F-96C4-912CAE0B2E08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FE1CA4E9-0E83-45F0-AC4E-ED5F64F5F63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE1CA4E9-0E83-45F0-AC4E-ED5F64F5F63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE1CA4E9-0E83-45F0-AC4E-ED5F64F5F63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE1CA4E9-0E83-45F0-AC4E-ED5F64F5F63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3FF656-E265-4F5F-96C4-912CAE0B2E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3FF656-E265-4F5F-96C4-912CAE0B2E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3FF656-E265-4F5F-96C4-912CAE0B2E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3FF656-E265-4F5F-96C4-912CAE0B2E08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

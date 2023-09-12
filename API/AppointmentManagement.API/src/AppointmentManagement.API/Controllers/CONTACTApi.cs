@@ -95,8 +95,10 @@ namespace AppointmentManagement.API.Controllers
             //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(0);
 
-            throw new NotImplementedException();
+            return Ok("Test");
+            // throw new NotImplementedException();
         }
+
 
         /// <summary>
         /// Get all contacts
