@@ -20,7 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using AppointmentManagement.API.Authentication;
+// using AppointmentManagement.API.Authentication;
 using AppointmentManagement.API.Filters;
 using AppointmentManagement.API.OpenApi;
 using AppointmentManagement.API.Formatters;
@@ -55,21 +55,6 @@ namespace AppointmentManagement.API
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IAuthorizationHandler, ApiKeyRequirementHandler>();
-            services.AddAuthorization(authConfig =>
-            {
-                authConfig.AddPolicy("api_key", policyBuilder =>
-                {
-                    policyBuilder
-                        .AddRequirements(new ApiKeyRequirement(new[] { "my-secret-key" },"api_key"));
-                });
-            });
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
-                    options => Configuration.Bind("JwtSettings", options))
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-                    options => Configuration.Bind("CookieSettings", options));
 
             // Add framework services.
             services
@@ -108,6 +93,33 @@ namespace AppointmentManagement.API
                         },
                         Version = "0.1",
                     });
+
+
+                    c.AddSecurityDefinition("X-API-Key", new OpenApiSecurityScheme
+                    {
+                        Name = "X-API-Key",
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "ApiKeyScheme",
+                        In = ParameterLocation.Header,
+                        Description = "ApiKey must appear in header"
+                    });
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                        {
+                            {
+                                new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Type = ReferenceType.SecurityScheme,
+                                        Id = "X-API-Key"
+                                    },
+                                    In = ParameterLocation.Header
+                                },
+                                new string[]{}
+                            }
+                        });
+
+
                     c.CustomSchemaIds(type => type.FriendlyId(true));
                     c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{Assembly.GetEntryAssembly().GetName().Name}.xml");
                     // Sets the basePath property in the OpenAPI document generated
@@ -155,8 +167,7 @@ namespace AppointmentManagement.API
                     // c.SwaggerEndpoint("/openapi-original.json", "Swagger Appointment managment - RTM - OpenAPI 3.1 Original");
                 });
             app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();

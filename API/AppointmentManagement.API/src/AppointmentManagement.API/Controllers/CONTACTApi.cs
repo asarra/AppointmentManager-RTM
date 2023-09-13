@@ -19,6 +19,10 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using AppointmentManagement.API.Attributes;
 using AppointmentManagement.API.Models;
+using AppointmentManagement.API.Attributes;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AppointmentManagement.API.Controllers
 { 
@@ -27,7 +31,9 @@ namespace AppointmentManagement.API.Controllers
     /// </summary>
     [ApiController]
     public class CONTACTApiController : ControllerBase
-    { 
+    {
+
+
         /// <summary>
         /// Create a new contact
         /// </summary>
@@ -37,7 +43,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpPost]
         [Route("/api/v3/contacts")]
-        [Authorize(Policy = "api_key")]
+        //[Authorize(Policy = "api_key")]
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateContact")]
@@ -61,7 +67,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpDelete]
         [Route("/api/v3/contacts/{ContactID}")]
-        [Authorize(Policy = "api_key")]
+        //[Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("DeleteContact")]
         public virtual IActionResult DeleteContact([FromRoute (Name = "ContactID")][Required]Object contactID)
@@ -84,19 +90,15 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpGet]
         [Route("/api/v3/contacts/{ContactID}")]
-        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("GetContact")]
         public virtual IActionResult GetContact([FromRoute (Name = "ContactID")][Required]Object contactID)
         {
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok("OK! :)");
+            else return Unauthorized();
 
-            return Ok("Test");
-            // throw new NotImplementedException();
         }
 
 
@@ -108,24 +110,28 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpGet]
         [Route("/api/v3/contacts")]
-        [Authorize(Policy = "api_key")]
+        //[Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("GetContacts")]
         [SwaggerResponse(statusCode: 200, type: typeof(Object), description: "Success")]
         public virtual IActionResult GetContacts()
         {
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Object));
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
+
+
             string exampleJson = null;
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Object>(exampleJson)
             : default(Object);
             //TODO: Change the data returned
-            return new ObjectResult(example);
+            
+
+
+
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return new ObjectResult(example);
+            else return Unauthorized();
         }
 
         /// <summary>
@@ -138,7 +144,7 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpPut]
         [Route("/api/v3/contacts/{ContactID}")]
-        [Authorize(Policy = "api_key")]
+        //[Authorize(Policy = "api_key")]
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("ReplaceContact")]
@@ -150,7 +156,9 @@ namespace AppointmentManagement.API.Controllers
             //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(0);
 
-            throw new NotImplementedException();
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok();
+            else return Unauthorized();
         }
     }
 }
