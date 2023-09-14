@@ -157,7 +157,7 @@ namespace AppointmentManagement.API.Controllers
             // return StatusCode(0);
 
             string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
-            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok();
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok("OK! :)");
             else return Unauthorized();
         }
     }
