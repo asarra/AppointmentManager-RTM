@@ -24,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace AppointmentManagement.API.Controllers
 { 
@@ -45,6 +46,10 @@ namespace AppointmentManagement.API.Controllers
             _context = context;
         }
 
+        private bool ItemExists(long id)
+        {
+            return _context.Contact.Any(CONTACT => CONTACT.ContactID == id);
+        }
 
         /// <summary>
         /// Create a new contact
@@ -98,15 +103,23 @@ namespace AppointmentManagement.API.Controllers
         //[Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("DeleteContact")]
-        public virtual IActionResult DeleteContact([FromRoute (Name = "ContactID")][Required]Object contactID)
+        public async virtual Task<IActionResult> DeleteContact([FromRoute (Name = "ContactID")][Required]long contactID)
         {
 
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+            var item = await _context.Contact.FindAsync(contactID);
 
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.Contact.Remove(item);
+            await _context.SaveChangesAsync();
+
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return NoContent();
+            else return Unauthorized();
+
         }
 
         /// <summary>
@@ -124,11 +137,11 @@ namespace AppointmentManagement.API.Controllers
         {
 
 
-            var contacts = await _context.Contact.FindAsync(contactID);// ToListAsync(); <- for multiple
+            var contact = await _context.Contact.FindAsync(contactID);// ToListAsync(); <- for multiple
 
             string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
 
-            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok(contacts);
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok(contact);
             else return Unauthorized();
 
             }
@@ -146,23 +159,11 @@ namespace AppointmentManagement.API.Controllers
         [ValidateModelState]
         [SwaggerOperation("GetContacts")]
         [SwaggerResponse(statusCode: 200, type: typeof(Object), description: "Success")]
-        public virtual IActionResult GetContacts()
+        public virtual async Task<IActionResult> GetContacts()
         {
-
-
-
-            string exampleJson = null;
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Object>(exampleJson)
-            : default(Object);
-            //TODO: Change the data returned
-            
-
-
-
+                     
             string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
-            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return new ObjectResult(example);
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return new ObjectResult(await _context.Contact.ToListAsync());
             else return Unauthorized();
         }
 
@@ -180,17 +181,50 @@ namespace AppointmentManagement.API.Controllers
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("ReplaceContact")]
-        public virtual IActionResult ReplaceContact([FromRoute (Name = "ContactID")][Required]Object contactID, [FromBody]CONTACT CONTACT)
+        public virtual async Task<IActionResult> ReplaceContact([FromRoute (Name = "ContactID")][Required]long contactID, [FromBody]CONTACT CONTACT)
         {
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
-
             string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
-            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok("OK! :)");
-            else return Unauthorized();
+
+            var contact = await _context.Contact.FindAsync(contactID);
+
+            if (contactID != CONTACT.ContactID)
+            {
+                return BadRequest();
+            }
+
+
+
+
+            var existingEntity = _context.Contact.FirstOrDefault(c => c.ContactID == CONTACT.ContactID);
+            if (existingEntity != null)
+            {
+                _context.Entry(existingEntity).CurrentValues.SetValues(CONTACT);
+            }
+            else
+            {
+                _context.Attach(CONTACT);
+                _context.Entry(CONTACT).State = EntityState.Modified;
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                if (HttpContext.Request.Headers["X-API-Key"] == apiKey)
+                    return Ok("Contact has been replaced");
+                else return Unauthorized();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ItemExists(contactID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
         }
     }
 }
