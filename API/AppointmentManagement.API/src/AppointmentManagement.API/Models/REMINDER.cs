@@ -26,26 +26,40 @@ namespace AppointmentManagement.API.Models
     [DataContract]
     public partial class REMINDER : IEquatable<REMINDER>
     {
+
+        private readonly AppDbContext _context;
+
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="REMINDER"/> class.
+        /// </summary>
+        /// <param name="context">The database context for appointments.</param>
+        public REMINDER(AppDbContext context)
+        {
+            _context = context;
+        }
+
         /// <summary>
         /// Gets or Sets ReminderID
         /// </summary>
         [Required]
         [DataMember(Name="ReminderID", EmitDefaultValue=true)]
-        public Object ReminderID { get; set; }
+        public long ReminderID { get; set; }
 
         /// <summary>
         /// Gets or Sets AppointmentID
         /// </summary>
         [Required]
         [DataMember(Name="AppointmentID", EmitDefaultValue=true)]
-        public Object AppointmentID { get; set; }
+        public long AppointmentID { get; set; }
 
         /// <summary>
         /// Gets or Sets Time
         /// </summary>
         [Required]
         [DataMember(Name="Time", EmitDefaultValue=true)]
-        public Object Time { get; set; }
+        public DateTime Time { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

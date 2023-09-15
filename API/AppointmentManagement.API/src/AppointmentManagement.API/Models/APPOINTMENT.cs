@@ -31,47 +31,47 @@ namespace AppointmentManagement.API.Models
         /// </summary>
         [Required]
         [DataMember(Name="AppointmentID", EmitDefaultValue=true)]
-        public Object AppointmentID { get; set; }
+        public long AppointmentID { get; set; }
 
         /// <summary>
         /// Gets or Sets ContactID
         /// </summary>
         [Required]
         [DataMember(Name="ContactID", EmitDefaultValue=true)]
-        public Object ContactID { get; set; }
+        public long ContactID { get; set; }
 
         /// <summary>
         /// Gets or Sets Repetition
         /// </summary>
         [Required]
         [DataMember(Name="Repetition", EmitDefaultValue=true)]
-        public Object Repetition { get; set; }
+        public int Repetition { get; set; }
 
         /// <summary>
         /// Gets or Sets Topic
         /// </summary>
         [Required]
         [DataMember(Name="Topic", EmitDefaultValue=true)]
-        public Object Topic { get; set; }
+        public string Topic { get; set; }
 
         /// <summary>
         /// Gets or Sets Note
         /// </summary>
         [DataMember(Name="Note", EmitDefaultValue=true)]
-        public Object Note { get; set; }
+        public string Note { get; set; }
 
         /// <summary>
         /// Gets or Sets StartTime
         /// </summary>
         [Required]
         [DataMember(Name="StartTime", EmitDefaultValue=true)]
-        public Object StartTime { get; set; }
+        public DateTime StartTime { get; set; }
 
         /// <summary>
         /// Gets or Sets EndTime
         /// </summary>
         [DataMember(Name="EndTime", EmitDefaultValue=true)]
-        public Object EndTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         /// <summary>
         /// Gets or Sets City
@@ -79,7 +79,7 @@ namespace AppointmentManagement.API.Models
         [Required]
         [MaxLength(50)]
         [DataMember(Name="City", EmitDefaultValue=true)]
-        public Object City { get; set; }
+        public string City { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

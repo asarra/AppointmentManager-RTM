@@ -27,6 +27,7 @@ using AppointmentManagement.API.Formatters;
 using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentManagement.API
 {
@@ -131,6 +132,10 @@ namespace AppointmentManagement.API
                 });
                 services
                     .AddSwaggerGenNewtonsoftSupport();
+                services
+                    .AddDbContext<AppDbContext>(options =>
+                        options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         /// <summary>

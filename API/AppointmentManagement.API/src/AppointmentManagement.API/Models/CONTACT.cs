@@ -31,21 +31,21 @@ namespace AppointmentManagement.API.Models
         /// </summary>
         [Required]
         [DataMember(Name="ContactID", EmitDefaultValue=true)]
-        public Object ContactID { get; set; }
+        public long ContactID { get; set; }
 
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
         [Required]
         [DataMember(Name="Name", EmitDefaultValue=true)]
-        public Object Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets PostalCode
         /// </summary>
         [Required]
         [DataMember(Name="PostalCode", EmitDefaultValue=true)]
-        public Object PostalCode { get; set; }
+        public int PostalCode { get; set; }
 
         /// <summary>
         /// Gets or Sets Street
@@ -53,7 +53,7 @@ namespace AppointmentManagement.API.Models
         [Required]
         [MaxLength(50)]
         [DataMember(Name="Street", EmitDefaultValue=true)]
-        public Object Street { get; set; }
+        public string Street { get; set; }
 
         /// <summary>
         /// Gets or Sets City
@@ -61,34 +61,34 @@ namespace AppointmentManagement.API.Models
         [Required]
         [MaxLength(50)]
         [DataMember(Name="City", EmitDefaultValue=true)]
-        public Object City { get; set; }
+        public string City { get; set; }
 
         /// <summary>
         /// Gets or Sets Note
         /// </summary>
         [DataMember(Name="Note", EmitDefaultValue=true)]
-        public Object Note { get; set; }
+        public string Note { get; set; }
 
         /// <summary>
         /// Gets or Sets Email
         /// </summary>
         [Required]
         [DataMember(Name="Email", EmitDefaultValue=true)]
-        public Object Email { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or Sets ContactType
         /// </summary>
         [Required]
         [DataMember(Name="ContactType", EmitDefaultValue=true)]
-        public Object ContactType { get; set; }
+        public int ContactType { get; set; }
 
         /// <summary>
         /// Gets or Sets Telephone
         /// </summary>
         [Required]
         [DataMember(Name="Telephone", EmitDefaultValue=true)]
-        public Object Telephone { get; set; }
+        public long Telephone { get; set; }
 
         /// <summary>
         /// Gets or Sets Company
@@ -96,7 +96,7 @@ namespace AppointmentManagement.API.Models
         [Required]
         [MaxLength(50)]
         [DataMember(Name="Company", EmitDefaultValue=true)]
-        public Object Company { get; set; }
+        public string Company { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

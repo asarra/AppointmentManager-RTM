@@ -19,10 +19,11 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using AppointmentManagement.API.Attributes;
 using AppointmentManagement.API.Models;
-using AppointmentManagement.API.Attributes;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace AppointmentManagement.API.Controllers
 { 
@@ -32,6 +33,17 @@ namespace AppointmentManagement.API.Controllers
     [ApiController]
     public class CONTACTApiController : ControllerBase
     {
+
+        private readonly AppDbContext _context;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CONTACTApiController"/> class.
+        /// </summary>
+        /// <param name="context">The database context for appointments.</param>
+        public CONTACTApiController(AppDbContext context)
+        {
+            _context = context;
+        }
 
 
         /// <summary>
@@ -47,7 +59,7 @@ namespace AppointmentManagement.API.Controllers
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateContact")]
-        public virtual IActionResult CreateContact([FromBody]CONTACT CONTACT)
+        public virtual async Task<IActionResult> CreateContactAsync([FromBody]CONTACT CONTACT)
         {
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -55,7 +67,23 @@ namespace AppointmentManagement.API.Controllers
             //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(0);
 
-            throw new NotImplementedException();
+
+            if (CONTACT == null)
+            {
+                return BadRequest();
+            }
+
+            _context.Contact.Add(CONTACT);
+            await _context.SaveChangesAsync();
+
+
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey)
+                return CreatedAtAction(nameof(GetContacts), new { id = CONTACT.ContactID }, CONTACT);
+            else return Unauthorized();
+
+            // throw new NotImplementedException();
         }
 
         /// <summary>
@@ -92,14 +120,18 @@ namespace AppointmentManagement.API.Controllers
         [Route("/api/v3/contacts/{ContactID}")]
         [ValidateModelState]
         [SwaggerOperation("GetContact")]
-        public virtual IActionResult GetContact([FromRoute (Name = "ContactID")][Required]Object contactID)
+        public virtual async Task<IActionResult> GetContactAsync([FromRoute (Name = "ContactID")][Required]long contactID)
         {
 
+
+            var contacts = await _context.Contact.FindAsync(contactID);// ToListAsync(); <- for multiple
+
             string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
-            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok("OK! :)");
+
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok(contacts);
             else return Unauthorized();
 
-        }
+            }
 
 
         /// <summary>

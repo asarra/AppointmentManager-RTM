@@ -27,7 +27,21 @@ namespace AppointmentManagement.API.Controllers
     /// </summary>
     [ApiController]
     public class APPOINTMENTApiController : ControllerBase
-    { 
+    {
+
+
+        private readonly AppDbContext _context;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="APPOINTMENTApiController"/> class.
+        /// </summary>
+        /// <param name="context">The database context for appointments.</param>
+        public APPOINTMENTApiController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+
         /// <summary>
         /// Create a new appointment
         /// </summary>
