@@ -19,6 +19,11 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using AppointmentManagement.API.Attributes;
 using AppointmentManagement.API.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AppointmentManagement.API.Controllers
 { 
@@ -41,6 +46,10 @@ namespace AppointmentManagement.API.Controllers
             _context = context;
         }
 
+        private bool ItemExists(long id)
+        {
+            return _context.Appointment.Any(APPOINTMENT => APPOINTMENT.AppointmentID == id);
+        }
 
         /// <summary>
         /// Create a new appointment
@@ -51,19 +60,86 @@ namespace AppointmentManagement.API.Controllers
         /// <response code="0"></response>
         [HttpPost]
         [Route("/api/v3/appointments")]
-        //[Authorize(Policy = "api_key")]
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateAppointment")]
-        public virtual IActionResult CreateAppointment([FromBody]APPOINTMENT APPOINTMENT)
+        public virtual IActionResult CreateAppointment([FromBody]AppointmentWithReminderRequest request)
         {
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
 
-            throw new NotImplementedException();
+
+                if (request == null || request.AppointmentID <= 0 || request.ContactID <= 0 || request.ReminderID <= 0)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                // Create a new 'Appointment' based on the request data
+                var newAppointment = new APPOINTMENT
+                {
+                    // Populate 'Appointment' properties from 'request'
+                    AppointmentID = request.AppointmentID,
+                    ContactID = request.ContactID,
+                    Repetition = request.Repetition,
+                    Topic = request.Topic,
+                    Note = request.Note,
+                    StartTime = request.StartTime,
+                    EndTime = request.EndTime,
+                    City = request.City
+                };
+
+                // Check if a 'Reminder' should be associated with the 'Appointment'
+                if (request.Repetition == 1)
+                {
+                    var newReminder = new REMINDER(_context)
+                    {
+                        // Populate 'Reminder' properties from 'request'
+                        ReminderID = request.ReminderID,
+                        AppointmentID = request.AppointmentID,
+                        Time = request.Time
+                    };
+                    _context.Reminder.Add(newReminder);
+
+                // Associate the 'Reminder' with the 'Appointment'
+                //newAppointment.Reminder = newReminder; <- only possible in no-sql databases
+            }
+
+                // Save the 'Appointment' and related 'Reminder' to the database
+                _context.Appointment.Add(newAppointment);
+                _context.SaveChanges();
+
+                // Return a response, e.g., the created 'Appointment' object
+
+
+
+                string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+
+                if (HttpContext.Request.Headers["X-API-Key"] == apiKey)
+                    return Ok("Created new appointment");
+                else return Unauthorized();
+
+
+            /*
+             Example:
+
+            {
+                "AppointmentID": 10,
+                "ContactID": 1,
+                "Repetition": 1,
+                "Topic": "<string>",
+                "StartTime": "2022-12-27 08:26:49.219717",
+                "City": "<string>",
+                "Note": "<string>",
+                "EndTime": "2022-12-27 09:26:49.219717",
+                "ReminderID": 1,
+                "Time": "2022-12-27 08:25:49.219717"
+            }
+
+
+             */
+
+
+
+
         }
 
         /// <summary>
@@ -78,15 +154,39 @@ namespace AppointmentManagement.API.Controllers
         //[Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("DeleteAppointment")]
-        public virtual IActionResult DeleteAppointment([FromRoute (Name = "AppointmentID")][Required]Object appointmentID)
+        public virtual async Task<IActionResult> DeleteAppointment([FromRoute (Name = "AppointmentID")][Required]long appointmentID)
         {
 
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
 
-            throw new NotImplementedException();
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+            var item = await _context.Appointment.FindAsync(appointmentID);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            if (item.Repetition == 1)
+            {
+
+                var reminders = _context.Reminder.ToList();
+                REMINDER reminder = null;
+                foreach (REMINDER x in reminders)
+                {
+                    if (x.AppointmentID == appointmentID)
+                        reminder = x;
+                }
+                _context.Reminder.Remove(reminder);
+                _context.SaveChanges();
+            }
+
+
+            _context.Appointment.Remove(item);
+            _context.SaveChanges();
+
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return NoContent();
+            else return Unauthorized();
+
         }
 
         /// <summary>
@@ -101,16 +201,35 @@ namespace AppointmentManagement.API.Controllers
         //[Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("GetAppointment")]
-        public virtual IActionResult GetAppointment([FromRoute (Name = "AppointmentID")][Required]Object appointmentID)
+        public virtual async Task<IActionResult> GetAppointment([FromRoute (Name = "AppointmentID")][Required]long appointmentID)
         {
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
 
-            throw new NotImplementedException();
+            var appointment = await _context.Appointment.FindAsync(appointmentID);
+
+            var reminders = _context.Reminder.ToList();
+            REMINDER reminder = null;
+            List<string> rs = new List<string>();
+            foreach (REMINDER x in reminders)
+            {
+                if (x.AppointmentID == appointmentID)
+                    reminder = x;
+            }
+
+
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return Ok((appointment, reminder));
+
+            else return Unauthorized();
+
         }
+
+
+
+
+
+
 
         /// <summary>
         /// Get all appointments
@@ -124,20 +243,12 @@ namespace AppointmentManagement.API.Controllers
         [ValidateModelState]
         [SwaggerOperation("GetAppointments")]
         [SwaggerResponse(statusCode: 200, type: typeof(Object), description: "Success")]
-        public virtual IActionResult GetAppointments()
+        public virtual async Task<IActionResult> GetAppointments()
         {
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Object));
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
-            string exampleJson = null;
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Object>(exampleJson)
-            : default(Object);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
+            if (HttpContext.Request.Headers["X-API-Key"] == apiKey) return new ObjectResult((await _context.Appointment.ToListAsync(), await _context.Reminder.ToListAsync()));
+            else return Unauthorized();
         }
 
         /// <summary>
@@ -154,15 +265,92 @@ namespace AppointmentManagement.API.Controllers
         [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("ReplaceAppointment")]
-        public virtual IActionResult ReplaceAppointment([FromRoute (Name = "AppointmentID")][Required]Object appointmentID, [FromBody]APPOINTMENT APPOINTMENT)
+        public virtual async Task<IActionResult> ReplaceAppointment([FromRoute (Name = "AppointmentID")][Required]long appointmentID, [FromBody]AppointmentWithReminderRequest request)
         {
+            string apiKey = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<string>("X-API-Key");
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
+            var appointment = await _context.Appointment.FindAsync(appointmentID);
 
-            throw new NotImplementedException();
+            if (appointmentID != request.AppointmentID)
+            {
+                return BadRequest();
+            }
+
+
+
+
+            var newAppointment = new APPOINTMENT
+            {
+                // Populate 'Appointment' properties from 'request'
+                AppointmentID = request.AppointmentID,
+                ContactID = request.ContactID,
+                Repetition = request.Repetition,
+                Topic = request.Topic,
+                Note = request.Note,
+                StartTime = request.StartTime,
+                EndTime = request.EndTime,
+                City = request.City
+            };
+
+
+
+            var existingEntity = _context.Appointment.FirstOrDefault(c => c.AppointmentID == request.AppointmentID);
+            if (existingEntity != null)
+            {
+                _context.Entry(existingEntity).CurrentValues.SetValues(newAppointment);
+            }
+            else
+            {
+                _context.Attach(newAppointment);
+                _context.Entry(newAppointment).State = EntityState.Modified;
+            }
+
+
+            // Check if a 'Reminder' should be associated with the 'Appointment'
+            if (request.Repetition == 1)
+            {
+                var newReminder = new REMINDER(_context)
+                {
+                    // Populate 'Reminder' properties from 'request'
+                    ReminderID = request.ReminderID,
+                    AppointmentID = request.AppointmentID,
+                    Time = request.Time
+                };
+
+                var existingReminder = _context.Reminder.FirstOrDefault(c => c.AppointmentID == request.AppointmentID);
+                if (existingReminder != null)
+                {
+                    _context.Entry(existingReminder).CurrentValues.SetValues(newReminder);
+                }
+                else
+                {
+                    _context.Attach(newReminder);
+                    _context.Entry(newReminder).State = EntityState.Modified;
+                }
+
+            }
+
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                if (HttpContext.Request.Headers["X-API-Key"] == apiKey)
+                    return Ok("Appointment has been replaced");
+                else return Unauthorized();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ItemExists(appointmentID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
         }
     }
 }
