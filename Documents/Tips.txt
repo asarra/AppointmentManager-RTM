@@ -1,6 +1,6 @@
 https://muratsuzen.medium.com/using-api-key-authorization-with-middleware-and-attribute-on-asp-net-core-web-api-543a4955a0ef
 
 Postman:
-http://localhost:61788/api/v3/contacts/5
+http://localhost:3001/api/v3
 Authorization:
 X-API-Key: QXBpS2V5TWlkZGxld2FyZQ==
