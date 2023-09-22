@@ -67,12 +67,6 @@ namespace AppointmentManagement.API.Controllers
         public virtual async Task<IActionResult> CreateContactAsync([FromBody]CONTACT CONTACT)
         {
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200);
-            //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(0);
-
-
             if (CONTACT == null)
             {
                 return BadRequest();
@@ -88,7 +82,6 @@ namespace AppointmentManagement.API.Controllers
                 return CreatedAtAction(nameof(GetContacts), new { id = CONTACT.ContactID }, CONTACT);
             else return Unauthorized();
 
-            // throw new NotImplementedException();
         }
 
         /// <summary>
@@ -135,7 +128,6 @@ namespace AppointmentManagement.API.Controllers
         [SwaggerOperation("GetContact")]
         public virtual async Task<IActionResult> GetContactAsync([FromRoute (Name = "ContactID")][Required]long contactID)
         {
-
 
             var contact = await _context.Contact.FindAsync(contactID);// ToListAsync(); <- for multiple
 
