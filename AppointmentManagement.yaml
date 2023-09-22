@@ -44,11 +44,6 @@ paths:
                   $ref: '#/components/schemas/CONTACT'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- api_key: []
-        #- appointmentmanagement_auth:
-        #    - write:contacts
-        #    - read:contacts
 
     post:
       tags:
@@ -63,10 +58,6 @@ paths:
           $ref: '#/components/responses/ContactResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- appointmentmanagement_auth:
-            #- write:contacts
-            #- read:contacts
 
   /contacts/{ContactID}:
     parameters:
@@ -82,11 +73,6 @@ paths:
           $ref: '#/components/responses/ContactResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- api_key: []
-        #- appointmentmanagement_auth:
-        #    - write:contacts
-        #    - read:contacts
 
     put:
       tags:
@@ -101,10 +87,6 @@ paths:
           $ref: '#/components/responses/ContactResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- appointmentmanagement_auth:
-            #- write:contacts
-            #- read:contacts
 
     delete:
       tags:
@@ -117,10 +99,6 @@ paths:
           description: Deleted the contact
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- appointmentmanagement_auth:
-            #- write:contacts
-            #- read:contacts
 
   /appointments:
     get:
@@ -145,11 +123,6 @@ paths:
                   $ref: '#/components/schemas/APPOINTMENT'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- api_key: []
-        #- appointmentmanagement_auth:
-        #    - write:appointments
-        #    - read:appointments
 
     post:
       tags:
@@ -164,10 +137,6 @@ paths:
           $ref: '#/components/responses/AppointmentResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- appointmentmanagement_auth:
-            #- write:appointments
-            #- read:appointments
 
   /appointments/{AppointmentID}:
     parameters:
@@ -183,11 +152,6 @@ paths:
           $ref: '#/components/responses/AppointmentResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- api_key: []
-        #- appointmentmanagement_auth:
-        #    - write:appointments
-        #    - read:appointments
 
     put:
       tags:
@@ -202,10 +166,7 @@ paths:
           $ref: '#/components/responses/AppointmentResponse'
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- appointmentmanagement_auth:
-            #- write:appointments
-            #- read:appointments
+
 
     delete:
       tags:
@@ -218,10 +179,6 @@ paths:
           description: Deleted the appointment
         default:
           $ref: '#/components/responses/CollectAllErrorsResponse'
-      #security:
-        #- appointmentmanagement_auth:
-            #- write:appointments
-            #- read:appointments
 
 
 
@@ -245,10 +202,7 @@ components:
   responses:
     CollectAllErrorsResponse: # catches everything that is not '200' and in delete cases '204'
       description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+
     ContactResponse:
       description: Success
       content: 
@@ -357,17 +311,42 @@ components:
           format: date-time
       xml:
         name: REMINDER
-    Error:
+
+
+    AppointmentWithReminderRequest:
       type: object
-      required:
-        - code
-        - message
       properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
+        AppointmentID:
+          schema:
+            $ref: '#/components/schemas/APPOINTMENT/properties/AppointmentID'
+        ContactID:
+          schema:
+            $ref: '#/components/schemas/APPOINTMENT/properties/ContactID'
+        Repetition:
+          schema:
+            $ref: '#/components/schemas/APPOINTMENT/properties/Repetition'
+        Topic:
+          schema:
+            $ref: '#/components/schemas/APPOINTMENT/properties/Topic'
+        StartTime:
+          schema:
+            $ref: '#/components/schemas/APPOINTMENT/properties/StartTime'
+        EndTime:
+          schema:
+            $ref: '#/components/schemas/APPOINTMENT/properties/EndTime'
+        City:
+          schema:
+            $ref: '#/components/schemas/APPOINTMENT/properties/City'
+
+        ReminderID:
+          schema:
+            $ref: '#/components/schemas/REMINDER/properties/ReminderID'
+        ReminderTime:
+          schema:
+            $ref: '#/components/schemas/REMINDER/properties/ReminderTime'
+        Time:
+          schema:
+            $ref: '#/components/schemas/REMINDER/properties/Time'
 
   requestBodies:
     ContactBody:
@@ -384,21 +363,7 @@ components:
         required: true
 
   securitySchemes:
-    #appointmentmanagement_auth:
-    #  type: oauth2
-    #  flows:
-    #    implicit:
-    #      authorizationUrl: http://localhost:3001/oauth/authorize
-    #      scopes:
-    #        write:contacts: modify contacts
-    #        read:contacts: read contacts
-    #        write:appointments: modify appointments
-    #        read:appointments: read appointments
     api_key:
       type: apiKey
       name: X-API-key
       in: header
-
-# Appointment needs to create a Reminder?
-#
-# https://dotnetcoretutorials.com/using-openapi-generator-to-scaffold-apis-and-api-clients/?expand_article=1
