@@ -8,89 +8,33 @@ namespace Calendar.NET
     /// </summary>
     public class CustomEvent : IEvent
     {
-        public int Rank
-        {
-            get;
-            set;
-        }
+        public int Rank { get; set; }
 
-        public float EventLengthInHours
-        {
-            get;
-            set;
-        }
+        public float EventLengthInHours { get; set; }
 
-        public bool Enabled
-        {
-            get;
-            set;
-        }
+        public bool Enabled { get; set; }
 
-        public CustomRecurringFrequenciesHandler CustomRecurringFunction
-        {
-            get;
-            set;
-        }
+        public CustomRecurringFrequenciesHandler CustomRecurringFunction { get; set; }
 
-        public bool IgnoreTimeComponent
-        {
-            get;
-            set;
-        }
+        public bool IgnoreTimeComponent { get; set; }
 
-        public bool ReadOnlyEvent
-        {
-            get;
-            set;
-        }
+        public bool ReadOnlyEvent { get; set; }
 
-        public DateTime Date
-        {
-            get;
-            set;
-        }
+        public DateTime Date {  get; set; }
 
-        public Color EventColor
-        {
-            get;
-            set;
-        }
+        public Color EventColor { get; set; }
 
-        public Font EventFont
-        {
-            get;
-            set;
-        }
+        public Font EventFont { get; set; }
 
-        public string EventText
-        {
-            get;
-            set;
-        }
+        public string EventText { get; set; }
+        
+        public Color EventTextColor { get; set; }
 
-        public Color EventTextColor
-        {
-            get;
-            set;
-        }
+        public RecurringFrequencies RecurringFrequency { get; set; }
 
-        public RecurringFrequencies RecurringFrequency
-        {
-            get;
-            set;
-        }
+        public bool TooltipEnabled { get; set; }
 
-        public bool TooltipEnabled
-        {
-            get;
-            set;
-        }
-
-        public bool ThisDayForwardOnly
-        {
-            get;
-            set;
-        }
+        public bool ThisDayForwardOnly { get; set; }
 
         /// <summary>
         /// CustomEvent Constructor

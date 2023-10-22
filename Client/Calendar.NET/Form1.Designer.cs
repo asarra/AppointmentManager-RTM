@@ -1,4 +1,4 @@
-﻿namespace Calendar.NETDemo
+﻿namespace Calendar.NET
 {
     partial class Form1
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.calendar1 = new Calendar.NET.Calendar();
+            this.calendar1 = new Calendar();
             this.SuspendLayout();
             // 
             // calendar1
@@ -39,7 +39,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.calendar1.BackColor = System.Drawing.Color.Transparent;
             this.calendar1.CalendarDate = new System.DateTime(2023, 10, 20, 13, 16, 0, 0);
-            this.calendar1.CalendarView = Calendar.NET.CalendarViews.Month;
+            this.calendar1.CalendarView = CalendarViews.Month;
             this.calendar1.DateHeaderFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.calendar1.DayOfWeekFont = new System.Drawing.Font("Arial", 10F);
             this.calendar1.DaysFont = new System.Drawing.Font("Arial", 10F);
@@ -75,7 +75,7 @@
 
         #endregion
 
-        private Calendar.NET.Calendar calendar1;
+        private Calendar calendar1;
         //private NET.Calendar calendar1;
 
 

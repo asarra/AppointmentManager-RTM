@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6CBC43B6-E950-49B2-B14A-563C50FCD5C3}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Calendar.NET</RootNamespace>
     <AssemblyName>Calendar.NET</AssemblyName>
@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,74 +48,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calendar.cs">
+    <Compile Include="DesignElements\Calendar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CalendarEvent.cs" />
-    <Compile Include="CustomEvent.cs" />
+    <Compile Include="Events\CalendarEvent.cs" />
+    <Compile Include="Events\CustomEvent.cs" />
     <Compile Include="CustomRecurringFunctionAttribute.cs" />
-    <Compile Include="EventComparer.cs" />
+    <Compile Include="Comparer\EventComparer.cs" />
     <Compile Include="EventDetails.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EventDetails.Designer.cs">
       <DependentUpon>EventDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="EventToolTip.cs">
+    <Compile Include="DesignElements\EventToolTip.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EventToolTip.Designer.cs">
+    <Compile Include="DesignElements\EventToolTip.Designer.cs">
       <DependentUpon>EventToolTip.cs</DependentUpon>
     </Compile>
-    <Compile Include="IEvent.cs" />
-    <Compile Include="NavigateLeftButton.cs">
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="DesignElements\NavigateLeftButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NavigateRightButton.cs">
+    <Compile Include="DesignElements\NavigateRightButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RectangleComparer.cs" />
+    <Compile Include="Comparer\RectangleComparer.cs" />
     <Compile Include="RoundedRectangle.cs" />
-    <Compile Include="CoolButton.cs">
+    <Compile Include="DesignElements\CoolButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CoolButton.Designer.cs">
+    <Compile Include="DesignElements\CoolButton.Designer.cs">
       <DependentUpon>CoolButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScrollPanel.cs">
+    <Compile Include="DesignElements\ScrollPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ScrollPanel.Designer.cs">
+    <Compile Include="DesignElements\ScrollPanel.Designer.cs">
       <DependentUpon>ScrollPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="TodayButton.cs">
+    <Compile Include="DesignElements\TodayButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Calendar.resx">
+    <EmbeddedResource Include="DesignElements\Calendar.resx">
       <DependentUpon>Calendar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CoolButton.resx">
+    <EmbeddedResource Include="DesignElements\CoolButton.resx">
       <DependentUpon>CoolButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EventDetails.resx">
       <DependentUpon>EventDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EventToolTip.resx">
+    <EmbeddedResource Include="DesignElements\EventToolTip.resx">
       <DependentUpon>EventToolTip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NavigateLeftButton.resx">
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignElements\NavigateLeftButton.resx">
       <DependentUpon>NavigateLeftButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NavigateRightButton.resx">
+    <EmbeddedResource Include="DesignElements\NavigateRightButton.resx">
       <DependentUpon>NavigateRightButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScrollPanel.resx">
+    <EmbeddedResource Include="DesignElements\ScrollPanel.resx">
       <DependentUpon>ScrollPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TodayButton.resx">
+    <EmbeddedResource Include="DesignElements\TodayButton.resx">
       <DependentUpon>TodayButton.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

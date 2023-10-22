@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Calendar.NETDemo
+namespace Calendar.NET
 {
     static class Program
     {

@@ -1,9 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.NET", "Calendar.NET\Calendar.NET.csproj", "{6CBC43B6-E950-49B2-B14A-563C50FCD5C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.NETDemo", "Calendar.NETDemo\Calendar.NETDemo.csproj", "{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentManagement.API", "..\API\AppointmentManagement.API\src\AppointmentManagement.API\AppointmentManagement.API.csproj", "{35A81116-1C37-4B70-811C-1A6C4779612C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,16 +27,18 @@ Global
 		{6CBC43B6-E950-49B2-B14A-563C50FCD5C3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6CBC43B6-E950-49B2-B14A-563C50FCD5C3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6CBC43B6-E950-49B2-B14A-563C50FCD5C3}.Release|x86.ActiveCfg = Release|Any CPU
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Debug|x86.ActiveCfg = Debug|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Debug|x86.Build.0 = Debug|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Release|Any CPU.ActiveCfg = Release|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Release|Mixed Platforms.Build.0 = Release|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Release|x86.ActiveCfg = Release|x86
-		{4BEC84E3-B065-4DED-94FE-9F0F6C7E8BB2}.Release|x86.Build.0 = Release|x86
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Debug|x86.Build.0 = Debug|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Release|x86.ActiveCfg = Release|Any CPU
+		{35A81116-1C37-4B70-811C-1A6C4779612C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

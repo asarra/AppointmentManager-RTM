@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Calendar.NET;
 
-namespace Calendar.NETDemo
+namespace Calendar.NET
 {
     public partial class Form1 : Form
     {
