@@ -1031,5 +1031,21 @@ namespace Calendar.NET
             if (_calendarView == CalendarViews.Day)
                 ResizeScrollPanel();
         }
+
+        internal class NET
+        {
+            public static object CalendarViews { get; internal set; }
+
+            internal class coolButton
+            {
+                public coolButton()
+                {
+                }
+            }
+
+            internal class Calendar : global::Calendar.NET.Calendar
+            {
+            }
+        }
     }
 }

@@ -19,7 +19,6 @@ namespace Calendar.NET
             calendar1.CalendarDate = new DateTime(2023, 10, 20, 15, 30, 0);
             calendar1.CalendarView = CalendarViews.Month;
             calendar1.AllowEditingEvents = true;
-
             var ce = new CustomEvent
                 {
                     IgnoreTimeComponent = false,
@@ -36,5 +35,23 @@ namespace Calendar.NET
             calendar1.AddEvent(ce);
         }
 
+       
+
+        private void calendar1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ContactForm contact = new ContactForm();
+            contact.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            EventDetails details = new EventDetails();
+            details.Show();
+        }
     }
 }
