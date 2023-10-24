@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -44,10 +45,16 @@ namespace Calendar.NET
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
         
+        private void createButton_Click(object sender, EventArgs e)
+        {
+           
+            HttpClient client = new HttpClient();
+
+            //client.PostAsync(client.BaseAddress + "/contacts",con);
+           
+        }
+      
+
     }
 }

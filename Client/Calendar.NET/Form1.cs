@@ -42,13 +42,14 @@ namespace Calendar.NET
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void createContactButton_Click(object sender, EventArgs e)
         {
             ContactForm contact = new ContactForm();
             contact.Show();
+            
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void newAppointmentButton_Click(object sender, EventArgs e)
         {
             EventDetails details = new EventDetails();
             details.Show();
