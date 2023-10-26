@@ -81,6 +81,8 @@ namespace AppointmentManagement.API.Models
         [DataMember(Name="City", EmitDefaultValue=true)]
         public string City { get; set; }
 
+        
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

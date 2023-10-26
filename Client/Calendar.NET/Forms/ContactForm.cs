@@ -53,16 +53,7 @@ namespace Calendar.NET
         private async void createButton_Click(object sender, EventArgs e)
         {
 
-            //HttpClient client = new HttpClient();
-            //client.DefaultRequestHeaders.Clear();
-            //client.DefaultRequestHeaders.Add("X-API-Key", "QXBpS2V5TWlkZGxld2FyZQ==");
-            //client.BaseAddress = new Uri("https://localhost:44301/api/v3/");
-            //HttpResponseMessage response = client.GetAsync("contacts/4").Result;
-
-            //var emp = response.Content.ReadAsStringAsync().Result;
-            //MessageBox.Show(emp);
-            //CONTACT c = JsonConvert.DeserializeObject<CONTACT>(emp);
-            //email.Text = c.Email; 
+             
 
 
 
@@ -83,7 +74,7 @@ namespace Calendar.NET
             content.Email = email.Text;
             content.Company = company.Text;
             content.Telephone = long.Parse(telephone.Text);
-            content.Note = "Beschreibung";
+            content.Note = note.Text ;
             content.PostalCode = int.Parse(postalCode.Text);
             content.ContactType = priv;
             content.ToJson();
@@ -95,6 +86,7 @@ namespace Calendar.NET
 
             var response = await client.PostAsync("contacts", httpContent);
             var responseString = await response.Content.ReadAsStringAsync();
+            MessageBox.Show("Contact successfully created");
             this.Close();
 
 
@@ -104,7 +96,6 @@ namespace Calendar.NET
 
         }
 
-      
-
+        
     }
 }

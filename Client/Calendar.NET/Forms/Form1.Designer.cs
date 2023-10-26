@@ -34,9 +34,9 @@
             this.Contacts = new System.Windows.Forms.ListView();
             this.deleteContactButton = new System.Windows.Forms.Button();
             this.idContact = new System.Windows.Forms.NumericUpDown();
-            this.calendar1 = new Calendar.NET.Calendar.NET.Calendar();
             this.showContact = new System.Windows.Forms.Button();
             this.labelid = new System.Windows.Forms.Label();
+            this.calendar1 = new Calendar.NET.Calendar.NET.Calendar();
             ((System.ComponentModel.ISupportInitialize)(this.idContact)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +46,7 @@
             this.createContactButton.Name = "createContactButton";
             this.createContactButton.Size = new System.Drawing.Size(188, 30);
             this.createContactButton.TabIndex = 1;
-            this.createContactButton.Text = "CreateContact";
+            this.createContactButton.Text = "Create Contact";
             this.createContactButton.UseVisualStyleBackColor = true;
             this.createContactButton.Click += new System.EventHandler(this.createContactButton_Click);
             // 
@@ -96,6 +96,25 @@
             this.idContact.Size = new System.Drawing.Size(34, 20);
             this.idContact.TabIndex = 7;
             // 
+            // showContact
+            // 
+            this.showContact.Location = new System.Drawing.Point(818, 146);
+            this.showContact.Name = "showContact";
+            this.showContact.Size = new System.Drawing.Size(188, 30);
+            this.showContact.TabIndex = 8;
+            this.showContact.Text = "Show Contact";
+            this.showContact.UseVisualStyleBackColor = true;
+            this.showContact.Click += new System.EventHandler(this.showContact_Click);
+            // 
+            // labelid
+            // 
+            this.labelid.AutoSize = true;
+            this.labelid.Location = new System.Drawing.Point(1013, 110);
+            this.labelid.Name = "labelid";
+            this.labelid.Size = new System.Drawing.Size(16, 13);
+            this.labelid.TabIndex = 9;
+            this.labelid.Text = "Id";
+            // 
             // calendar1
             // 
             this.calendar1.AllowEditingEvents = false;
@@ -122,25 +141,6 @@
             this.calendar1.Size = new System.Drawing.Size(816, 497);
             this.calendar1.TabIndex = 0;
             this.calendar1.TodayFont = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            // 
-            // showContact
-            // 
-            this.showContact.Location = new System.Drawing.Point(818, 146);
-            this.showContact.Name = "showContact";
-            this.showContact.Size = new System.Drawing.Size(188, 30);
-            this.showContact.TabIndex = 8;
-            this.showContact.Text = "Show Contact";
-            this.showContact.UseVisualStyleBackColor = true;
-            this.showContact.Click += new System.EventHandler(this.showContact_Click);
-            // 
-            // labelid
-            // 
-            this.labelid.AutoSize = true;
-            this.labelid.Location = new System.Drawing.Point(1013, 110);
-            this.labelid.Name = "labelid";
-            this.labelid.Size = new System.Drawing.Size(15, 13);
-            this.labelid.TabIndex = 9;
-            this.labelid.Text = "id";
             // 
             // Form1
             // 

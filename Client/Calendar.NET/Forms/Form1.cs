@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
 using Calendar.NET;
+using Calendar.NET.Forms;
 using Newtonsoft.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -54,8 +55,8 @@ namespace Calendar.NET
 
         private void newAppointmentButton_Click(object sender, EventArgs e)
         {
-            EventDetails details = new EventDetails();
-            details.Show();
+            AppointmentForm appointment = new AppointmentForm();
+            appointment.Show();
         }
         
 
@@ -72,7 +73,7 @@ namespace Calendar.NET
             
             List<CONTACT> c = JsonConvert.DeserializeObject<List<CONTACT>>(emp);
             foreach (CONTACT contact in c) {
-                Contacts.Items.Add(contact.Name+" "+contact.ContactID);
+                Contacts.Items.Add("Contact: "+contact.Name+" Id: "+contact.ContactID);
             }
             
 
@@ -128,7 +129,8 @@ namespace Calendar.NET
                     var emp = response.Content.ReadAsStringAsync().Result;
 
                     CONTACT c = JsonConvert.DeserializeObject<CONTACT>(emp);
-                    MessageBox.Show(c.ToString());
+                    if (c != null) { MessageBox.Show(c.ToString()); }
+                    
                 }
                 else
                 {

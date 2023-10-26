@@ -33,9 +33,10 @@
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.gbBasics = new System.Windows.Forms.GroupBox();
+            this.chkIgnoreTimeComponent = new System.Windows.Forms.CheckBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.note = new System.Windows.Forms.TextBox();
-            this.chkIgnoreTimeComponent = new System.Windows.Forms.CheckBox();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.gbRecurringOptions = new System.Windows.Forms.GroupBox();
             this.chkThisDayForwardOnly = new System.Windows.Forms.CheckBox();
@@ -45,7 +46,7 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.gbBasics.SuspendLayout();
             this.gbRecurringOptions.SuspendLayout();
             this.SuspendLayout();
@@ -86,6 +87,7 @@
             // 
             // gbBasics
             // 
+            this.gbBasics.Controls.Add(this.dateTimePicker2);
             this.gbBasics.Controls.Add(this.chkIgnoreTimeComponent);
             this.gbBasics.Controls.Add(this.label2);
             this.gbBasics.Controls.Add(this.dateTimePicker1);
@@ -99,6 +101,26 @@
             this.gbBasics.TabStop = false;
             this.gbBasics.Text = "Basics";
             // 
+            // chkIgnoreTimeComponent
+            // 
+            this.chkIgnoreTimeComponent.AutoSize = true;
+            this.chkIgnoreTimeComponent.Location = new System.Drawing.Point(318, 19);
+            this.chkIgnoreTimeComponent.Name = "chkIgnoreTimeComponent";
+            this.chkIgnoreTimeComponent.Size = new System.Drawing.Size(139, 17);
+            this.chkIgnoreTimeComponent.TabIndex = 5;
+            this.chkIgnoreTimeComponent.Text = "Ignore Time Component";
+            this.chkIgnoreTimeComponent.UseVisualStyleBackColor = true;
+            this.chkIgnoreTimeComponent.CheckedChanged += new System.EventHandler(this.ChkIgnoreTimeComponentCheckedChanged);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "M/d/yyyy h:mm tt";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(228, 63);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 8;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -111,22 +133,11 @@
             // note
             // 
             this.note.Location = new System.Drawing.Point(21, 212);
-            this.note.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.note.Margin = new System.Windows.Forms.Padding(2);
             this.note.Multiline = true;
             this.note.Name = "note";
             this.note.Size = new System.Drawing.Size(108, 60);
             this.note.TabIndex = 6;
-            // 
-            // chkIgnoreTimeComponent
-            // 
-            this.chkIgnoreTimeComponent.AutoSize = true;
-            this.chkIgnoreTimeComponent.Location = new System.Drawing.Point(318, 19);
-            this.chkIgnoreTimeComponent.Name = "chkIgnoreTimeComponent";
-            this.chkIgnoreTimeComponent.Size = new System.Drawing.Size(139, 17);
-            this.chkIgnoreTimeComponent.TabIndex = 5;
-            this.chkIgnoreTimeComponent.Text = "Ignore Time Component";
-            this.chkIgnoreTimeComponent.UseVisualStyleBackColor = true;
-            this.chkIgnoreTimeComponent.CheckedChanged += new System.EventHandler(this.ChkIgnoreTimeComponentCheckedChanged);
             // 
             // chkEnabled
             // 
@@ -202,14 +213,12 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.BtnCancelClick);
             // 
-            // dateTimePicker1
+            // dateTimePicker2
             // 
-            this.dateTimePicker1.CustomFormat = "M/d/yyyy h:mm tt";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(228, 63);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 8;
+            this.dateTimePicker2.Location = new System.Drawing.Point(147, 70);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker2.TabIndex = 9;
             // 
             // EventDetails
             // 
@@ -260,5 +269,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox note;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
     }
 }
