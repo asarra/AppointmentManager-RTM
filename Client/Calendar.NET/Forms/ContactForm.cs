@@ -33,20 +33,7 @@ namespace Calendar.NET
 
         }
 
-        //private void Telephone_TextChanged(object sender, EventArgs e)
-        //{
-        //    string inputText = telephone.Text;
-
-        //    // Definieren Sie das Muster (Regex-Pattern), das die erlaubten Zeichen angibt.
-        //    string pattern = @"^[0-9]*$"; // In diesem Beispiel werden nur Zahlen erlaubt.
-
-        //    // Überprüfen, ob das Eingabeformat dem Muster entspricht.
-        //    if (!Regex.IsMatch(inputText, pattern))
-        //    {
-        //        // Wenn die Eingabe nicht dem Muster entspricht, entfernen Sie unerlaubte Zeichen.
-        //        telephone.Text = Regex.Replace(inputText, pattern, "0");
-        //    }
-        //}
+      
 
 
 

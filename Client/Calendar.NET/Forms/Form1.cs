@@ -90,22 +90,22 @@ namespace Calendar.NET
             
             try
             {
-                // Senden Sie die HTTP DELETE-Anfrage
+                // Send HTTP DELETE-Request
                 HttpResponseMessage response = await client.DeleteAsync($"contacts/{id}");
 
-                // Überprüfen Sie die Antwort und verarbeiten Sie sie entsprechend
+                // checking response
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Ressource erfolgreich gelöscht.");
+                    MessageBox.Show("Contact deleted succesfully");
                 }
                 else
                 {
-                    MessageBox.Show($"Fehler beim Löschen der Ressource. Statuscode: {response.StatusCode}");
+                    MessageBox.Show($"Error  Statuscode: {response.StatusCode}");
                 }
             }
             catch (HttpRequestException ex)
             {
-                MessageBox.Show($"Fehler bei der HTTP-Anfrage: {ex.Message}");
+                MessageBox.Show($"Error HTTP-Request: {ex.Message}");
             }
         }
 
@@ -120,10 +120,10 @@ namespace Calendar.NET
 
             try
             {
-                // Senden Sie die HTTP DELETE-Anfrage
+                // Send HTTP DELETE-Request
                 HttpResponseMessage response = await client.GetAsync($"contacts/{id}");
 
-                // Überprüfen Sie die Antwort und verarbeiten Sie sie entsprechend
+                // checking response
                 if (response.IsSuccessStatusCode)
                 {
                     var emp = response.Content.ReadAsStringAsync().Result;
@@ -134,12 +134,12 @@ namespace Calendar.NET
                 }
                 else
                 {
-                    MessageBox.Show($"Kontakt nicht gefunden. Statuscode: {response.StatusCode}");
+                    MessageBox.Show($"Contact not found Statuscode: {response.StatusCode}");
                 }
             }
             catch (HttpRequestException ex)
             {
-                MessageBox.Show($"Fehler bei der HTTP-Anfrage: {ex.Message}");
+                MessageBox.Show($"Error HTTP-Request: {ex.Message}");
             }
         }
 
