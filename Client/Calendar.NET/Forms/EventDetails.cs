@@ -124,11 +124,9 @@ namespace Calendar.NET
             cbRecurringFrequency.SelectedItem = RecurringFrequencyToString(_event.RecurringFrequency);
             chkThisDayForwardOnly.Enabled = _event.RecurringFrequency != RecurringFrequencies.None;
             chkEnabled.Checked = _event.Enabled;
-            lblFont.Text = _event.EventFont.FontFamily.Name + " " + _event.EventFont.Size.ToString(CultureInfo.InvariantCulture) + "pt";
-            pnlEventColor.BackColor = _event.EventColor;
-            pnlTextColor.BackColor = _event.EventTextColor;
+            
             chkIgnoreTimeComponent.Checked = _event.IgnoreTimeComponent;
-            chkEnableTooltip.Checked = _event.TooltipEnabled;
+            
 
             Text = char.ToUpper(_event.EventText[0]) + _event.EventText.Substring(1) + " Details";
 
@@ -154,7 +152,7 @@ namespace Calendar.NET
             _newEvent.RecurringFrequency = StringToRecurringFrequencies(cbRecurringFrequency.SelectedItem.ToString());
             _newEvent.ThisDayForwardOnly = chkThisDayForwardOnly.Checked;
             _newEvent.IgnoreTimeComponent = chkIgnoreTimeComponent.Checked;
-            _newEvent.TooltipEnabled = chkEnableTooltip.Checked;
+            
 
             DialogResult = DialogResult.OK;
             
@@ -167,7 +165,7 @@ namespace Calendar.NET
             
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                pnlEventColor.BackColor = colorDialog1.Color;
+                
                 _newEvent.EventColor = colorDialog1.Color;
             }
         }
@@ -178,7 +176,7 @@ namespace Calendar.NET
 
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                pnlTextColor.BackColor = colorDialog1.Color;
+                
                 _newEvent.EventTextColor = colorDialog1.Color;
             }
         }
